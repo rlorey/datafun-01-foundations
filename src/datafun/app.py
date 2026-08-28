@@ -1,6 +1,6 @@
 """src/datafun/app.py - Project script.
 
-Author: Denise Case
+Author: Rebecca Lorey
 Date: 2026-08-20
 
 HOW TO RUN THIS FILE:
@@ -76,7 +76,7 @@ LOG: logging.Logger = get_logger("P01", level="DEBUG")
 # Use the Path() constructor to create a Path object representing the "data" folder.
 # Combine with the CSV file name
 # to get the full path to the data file.
-DATA_FILE_PATH: Final[Path] = Path("data") / "penguins.csv"
+DATA_FILE_PATH: Final[Path] = Path("data") / "cricket_chirps_vs_temperature.csv"
 
 # === OPEN THE DATA FILE IN EXCEL ===
 
@@ -89,21 +89,19 @@ DATA_FILE_PATH: Final[Path] = Path("data") / "penguins.csv"
 # important thing to know about any dataset.
 # Come up with a short phrase that describes it.
 # Fill this string value AFTER exploring the data.
-GRAIN: Final[str] = "one penguin"  # CUSTOM
+GRAIN: Final[str] = "Number of chirps per second for a given temperature"  # CUSTOM
 
 # === FIND A COLUMN YOU MIGHT BE ABLE TO PREDICT ===
 
 # CUSTOM: Choose one NUMERIC target value that you might be able to predict
 # from other columns in the dataset.
 # This must match a numeric column name EXACTLY as it appears in the CSV file.
-# I picked "body_mass_g" as the target column.
-A_TARGET_WE_COULD_PREDICT: Final[str] = "body_mass_g"
+A_TARGET_WE_COULD_PREDICT: Final[str] = "Temperature_F"
 
 # CUSTOM: Choose one other NUMERIC column
 # as a FEATURE that might help predict the target.
 # This must match a numeric column name EXACTLY as it appears in the CSV file.
-# I picked "bill_length_mm" as the feature column.
-A_FEATURE_THAT_MIGHT_HELP: Final[str] = "bill_length_mm"
+A_FEATURE_THAT_MIGHT_HELP: Final[str] = "Chirps_Per_Second"
 
 # CUSTOM: Document your thinking.
 # Why do you think that feature could help predict the target?
@@ -113,10 +111,7 @@ A_FEATURE_THAT_MIGHT_HELP: Final[str] = "bill_length_mm"
 # like I typed it.
 # Open and close with three double quotes to get a multi-line string.
 WHY_THE_FEATURE_MIGHT_HELP: Final[str] = r"""
-A bigger penguin probably has both a longer bill and more mass,
-so bill length might help predict body mass.
-That is, a longer bill may indicate a larger body mass.
-"""
+It's possible that we could predict the temperature within a certain range given a number of cricket chirps per second."""
 
 
 # === DEFINE THE MAIN FUNCTION ===
@@ -189,33 +184,67 @@ def main() -> None:
     LOG.info("04. VISUALIZE the selected target and feature.")
     LOG.info("-------------------------------")
 
+# Load data
+df = pd.read_csv("data/cricket_chirps_vs_temperature.csv")
+
+# %% [markdown]
+# ### This creates an interactive cell block
+
+
+# 1. Safely locate your data file
+DATA_FILE_PATH = Path("data") / "cricket_chirps_vs_temperature.csv"
+
+if DATA_FILE_PATH.exists():
+    df = pd.read_csv(DATA_FILE_PATH)
+    
+    # 2. Build the scatter plot visualization
+    plt.figure(figsize=(8, 5))
+    plt.scatter(df["Chirps_Per_Second"], df["Temperature_F"], color="red", edgecolors="black", s=50)
+    plt.title("Cricket Chirps vs Ambient Temperature")
+    plt.xlabel("Chirps Per Second")
+    plt.ylabel("Temperature (°F)")
+    plt.grid(True, linestyle="--", alpha=0.6)
+    
+    # 3. Create the output folder and save it locally inside your project!
+    OUTPUT_DIR = Path("docs/images")
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    
+    CHART_PATH = OUTPUT_DIR / "feature-target-scatter.png"
+    plt.savefig(CHART_PATH, dpi=300)
+    plt.close()
+    print(f"🎉 Success! Your plot has been saved perfectly to: {CHART_PATH}")
+else:
+    print(f"❌ Error: Could not find the file at {DATA_FILE_PATH}. Please check your folder structure!")
+
+
+    
+    
     # We required both the target and the feature to be numeric columns.
     # A good way to visualize the relationship
     # between two numeric columns is a scatter plot.
 
     # Define a path to save the feature vs target scatter plot.
     # REQUIRED: Use the "docs/images" folder to store generated charts.
-    CHART_PATH = Path("docs/images/feature-target-scatter.png")
-
+#CHART_PATH = Path("docs/images/feature-target-scatter.png")
     # Call an imported function that will show a scatter plot
     # Pass in the pandas DataFrame (df) along with the target and feature column names.
     # It will return a matplotlib Axes object representing the scatter plot.
-    ax = show_numeric_relationship(
-        df, x=A_FEATURE_THAT_MIGHT_HELP, y=A_TARGET_WE_COULD_PREDICT
-    )
+#ax = show_numeric_relationship(
+#df, x=A_FEATURE_THAT_MIGHT_HELP, y=A_TARGET_WE_COULD_PREDICT
+    #)
 
     # call the save_chart() function and pass in the Axes and the path
-    save_chart(ax, CHART_PATH)
-    LOG.info(f"Chart saved successfully at {CHART_PATH}.")
+#save_chart(ax, CHART_PATH)
+#LOG.info(f"Chart saved successfully at {CHART_PATH}.")
 
-    LOG.info(
-        "IMPORTANT: Close chart window to continue by clicking its X or close button."
-    )
-    plt.show()
+#LOG.info(
+    "IMPORTANT: Close chart window to continue by clicking its X or close button."
+    #)
+#plt.show()
 
-    LOG.info("===================================")
-    LOG.info("END main() - Executed successfully!")
-    LOG.info("===================================")
+#LOG.info("===================================")
+#LOG.info("END main() - Executed successfully!")
+#LOG.info("===================================")
 
 
 # === CONDITIONAL EXECUTION GUARD ===
@@ -227,3 +256,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+# %%

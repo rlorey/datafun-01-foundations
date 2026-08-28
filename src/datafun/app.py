@@ -187,9 +187,6 @@ def main() -> None:
 # Load data
 df = pd.read_csv("data/cricket_chirps_vs_temperature.csv")
 
-# %% [markdown]
-# ### This creates an interactive cell block
-
 
 # 1. Safely locate your data file
 DATA_FILE_PATH = Path("data") / "cricket_chirps_vs_temperature.csv"
@@ -214,38 +211,8 @@ if DATA_FILE_PATH.exists():
     plt.close()
     print(f"🎉 Success! Your plot has been saved perfectly to: {CHART_PATH}")
 else:
-    print(f"❌ Error: Could not find the file at {DATA_FILE_PATH}. Please check your folder structure!")
-
-
+    print(f"❌ Error: Could not find the file at {DATA_FILE_PATH}. Please check your folder structure!")    
     
-    
-    # We required both the target and the feature to be numeric columns.
-    # A good way to visualize the relationship
-    # between two numeric columns is a scatter plot.
-
-    # Define a path to save the feature vs target scatter plot.
-    # REQUIRED: Use the "docs/images" folder to store generated charts.
-#CHART_PATH = Path("docs/images/feature-target-scatter.png")
-    # Call an imported function that will show a scatter plot
-    # Pass in the pandas DataFrame (df) along with the target and feature column names.
-    # It will return a matplotlib Axes object representing the scatter plot.
-#ax = show_numeric_relationship(
-#df, x=A_FEATURE_THAT_MIGHT_HELP, y=A_TARGET_WE_COULD_PREDICT
-    #)
-
-    # call the save_chart() function and pass in the Axes and the path
-#save_chart(ax, CHART_PATH)
-#LOG.info(f"Chart saved successfully at {CHART_PATH}.")
-
-#LOG.info(
-    "IMPORTANT: Close chart window to continue by clicking its X or close button."
-    #)
-#plt.show()
-
-#LOG.info("===================================")
-#LOG.info("END main() - Executed successfully!")
-#LOG.info("===================================")
-
 
 # === CONDITIONAL EXECUTION GUARD ===
 
@@ -257,4 +224,6 @@ else:
 if __name__ == "__main__":
     main()
 
-# %%
+print("=========================================")
+print("END main() – Executed successfully!")
+print("=========================================")

@@ -8,22 +8,16 @@
 # CUSTOM: Update author, repository, license, and keyword fields as needed.
 # USAGE: See https://citation-file-format.github.io/ for details.
 
-cff-version: "1.2.0"
-message: "If using this work, please cite it as described in this file."
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
 type: software
-
-title: "datafun-01-foundations"
-version: "1.2.0"
-date-released: "2026-08-20"
-
 authors:
-  - family-names: Case
-    given-names: Denise M.
-    orcid: "https://orcid.org/0000-0001-6165-7389"
-    affiliation: "Northwest Missouri State University, School of Computer Science and Information Systems, Maryville, MO, USA"
-
-repository-code: "https://github.com/denisecase/datafun-01-foundations"
-url: "https://github.com/denisecase/datafun-01-foundations"
+  - family-names: "Lorey"
+    given-names: "Rebecca"
+title: "datafun-01-foundations"
+version: "0.1.0"
+date-released: "2026-08-27"
+url: "https://github.com"
 license: MIT
 
 abstract: >

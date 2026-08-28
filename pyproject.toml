@@ -11,8 +11,13 @@
 # SECTION 1: PROJECT IDENTITY (name, version, CUSTOM dependencies)
 # ============================================================
 
+
 [project]
-name = "datafun-01-foundations" # Package distribution name (lowercase and dashes).
+name = "datafun-01-foundations"
+description = "A foundational Python application for automated data loading and inspection workflows."
+authors = [{ name = "Rebecca Lorey" }]
+
+
 readme = "README.md"
 requires-python = ">=3.14"
 version = "1.2.0"
